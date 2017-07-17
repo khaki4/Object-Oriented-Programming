@@ -1,6 +1,5 @@
 /**
- * removeTask 알고리즘 수정
- * splice 이후 break;
+ * removeTask 가 제대로 실행 됐는지 알아야 한다
  */
 
 var tasks = [];
@@ -22,13 +21,18 @@ var addTask = (function() {
 })();
 
 var removeTask = function(id) {
+  var isRemoved = false;
   for (var i = 0; i < tasks.length; i++) {
     if (id === tasks[i].id) {
       tasks.splice(i, 1);
+      isRemoved = true;
+      
       break;
     }
   }
-  
+  if (!isRemoved) {
+    console.log('removeTask: invalid id');
+  }
   render();
 };
 
