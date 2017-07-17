@@ -1,19 +1,25 @@
 /**
- * [id: 1, title: '할일', state: '진행'] 형식의 데이터로 todo 만들기
- * 1> addTask, removeTask, updateState, render 함수 만들기
- * 2> state는 진행, 완료 둘이며 상,하로 섹션을 구분해야 한다.
+ * id는 모두가 접근해야 하는 것이 아니라
+ * addTask만이 알고있어야 한다
+ *
+ * 어휘 관리의 분리가 좋은 개발자가 되는 분수령이다.
+ * 프로그레밍은 절대로 변한다
  */
 
 var tasks = [];
-var id = 1;
-var addTask = function(title) {
-  tasks.push({
-    title: title,
-    id: id++,
-    state: '진행'
-  });
-  render();
-};
+
+var addTask = (function() {
+  var id = 1;
+
+  return function(title) {
+    tasks.push({
+      title: title,
+      id: id++,
+      state: '진행'
+    });
+    render();
+  };
+})();
 
 var removeTask = function(id) {
   for (var i = 0; i < tasks.length; i++) {
