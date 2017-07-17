@@ -1,5 +1,9 @@
 /**
- * removeTask 가 제대로 실행 됐는지 알아야 한다
+ * 1> removeTask 가 제대로 실행 됐는지 알아야 한다 => removeTask 실행결과 알리기
+ * 2> console.log => warning으로 교체
+ *
+ * 순수한 데이터를 방해하고 특정한 시스템에 바인딩 되는 로직을
+ * Native Logic이라고 한다
  */
 
 var tasks = [];
@@ -15,7 +19,7 @@ var addTask = (function() {
       id: id++,
       state: STATE_P
     });
-    
+
     render();
   };
 })();
@@ -26,12 +30,12 @@ var removeTask = function(id) {
     if (id === tasks[i].id) {
       tasks.splice(i, 1);
       isRemoved = true;
-      
+
       break;
     }
   }
   if (!isRemoved) {
-    console.log('removeTask: invalid id');
+    warning('removeTask: invalid id');
   }
   render();
 };
@@ -43,7 +47,7 @@ var updateState = function(id, state) {
       break;
     }
   }
-  
+
   render();
 };
 
