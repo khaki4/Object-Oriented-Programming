@@ -1,12 +1,10 @@
 /**
- * id는 모두가 접근해야 하는 것이 아니라
- * addTask만이 알고있어야 한다
- *
- * 어휘 관리의 분리가 좋은 개발자가 되는 분수령이다.
- * 프로그레밍은 절대로 변한다
+ * 매직넘버를 배제한다.
  */
 
 var tasks = [];
+var STATE_P = '진행';
+var STATE_C = '완료';
 
 var addTask = (function() {
   var id = 1;
@@ -15,8 +13,9 @@ var addTask = (function() {
     tasks.push({
       title: title,
       id: id++,
-      state: '진행'
+      state: STATE_P
     });
+    
     render();
   };
 })();
@@ -27,6 +26,7 @@ var removeTask = function(id) {
       tasks.splice(i, 1);
     }
   }
+  
   render();
 };
 
@@ -36,6 +36,7 @@ var updateState = function(id, state) {
       tasks.state = state;
     }
   }
+  
   render();
 };
 
