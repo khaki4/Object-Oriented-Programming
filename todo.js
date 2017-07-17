@@ -1,5 +1,6 @@
 /**
- * 매직넘버를 배제한다.
+ * removeTask 알고리즘 수정
+ * splice 이후 break;
  */
 
 var tasks = [];
@@ -24,6 +25,7 @@ var removeTask = function(id) {
   for (var i = 0; i < tasks.length; i++) {
     if (id === tasks[i].id) {
       tasks.splice(i, 1);
+      break;
     }
   }
   
@@ -34,6 +36,7 @@ var updateState = function(id, state) {
   for (var i = 0; i < tasks.length; i++) {
     if (id === tasks[i].id) {
       tasks.state = state;
+      break;
     }
   }
   
