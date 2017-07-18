@@ -1,5 +1,7 @@
 /**
- * 1> ID validation 추가
+ * 1> chageState의 id,state를 white list로 교체
+ *
+ * validation 되기 전 값을 validation된 값으로 바꾼 것을 white list 라고 함
  */
 
 var tasks = [];
@@ -38,9 +40,10 @@ var removeTask = function(id) {
 
 var changeState = function(id, state) {
   var ID = false; //ID는 절대로 false가 될 수 없다!!
+  var STATE;
   for (var i = 0; i < tasks.length; i++) {
     if (tasks[i].id === id) {
-      ID = true;
+      ID = id;
     }
   }
   if (ID === false) {
@@ -52,11 +55,13 @@ var changeState = function(id, state) {
     warning('changeState: invalid -', state);
     
     return;
+  } else {
+    STATE = state;
   }
   
   for (var i = 0; i < tasks.length; i++) {
-    if (id === tasks[i].id) {
-      tasks.state = state;
+    if (ID === tasks[i].id) {
+      tasks.state = STATE;
       break;
     }
   }
