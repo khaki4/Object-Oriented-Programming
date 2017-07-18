@@ -1,7 +1,5 @@
 /**
- * 1> chageState의 id,state를 white list로 교체
- *
- * validation 되기 전 값을 validation된 값으로 바꾼 것을 white list 라고 함
+ * 1> warning 함수 추가
  */
 
 var tasks = [];
@@ -53,7 +51,6 @@ var changeState = function(id, state) {
   
   if(state !== STATE_C && state !== STATE_P) {
     warning('changeState: invalid -', state);
-    
     return;
   } else {
     STATE = state;
@@ -68,6 +65,8 @@ var changeState = function(id, state) {
 
   render();
 };
+
+var warning = console.log;
 
 var render = function() {
   console.log('진행');
