@@ -1,9 +1,7 @@
 /**
- * 1> removeTask 가 제대로 실행 됐는지 알아야 한다 => removeTask 실행결과 알리기
- * 2> console.log => warning으로 교체
+ * 1> changeState : validation 추가 (shield pattern 사용)
  *
- * 순수한 데이터를 방해하고 특정한 시스템에 바인딩 되는 로직을
- * Native Logic이라고 한다
+ * validation 을 할 경우 항상 shiled pattern을 사용한다
  */
 
 var tasks = [];
@@ -40,7 +38,12 @@ var removeTask = function(id) {
   render();
 };
 
-var updateState = function(id, state) {
+var changeState = function(id, state) {
+  if(state !== STATE_C && state !== STATE_P) {
+    warning('changeState: invalid -', state);
+    
+    return;
+  }
   for (var i = 0; i < tasks.length; i++) {
     if (id === tasks[i].id) {
       tasks.state = state;
