@@ -1,7 +1,5 @@
 /**
- * 1> changeState : validation 추가 (shield pattern 사용)
- *
- * validation 을 할 경우 항상 shiled pattern을 사용한다
+ * 1> ID validation 추가
  */
 
 var tasks = [];
@@ -39,11 +37,23 @@ var removeTask = function(id) {
 };
 
 var changeState = function(id, state) {
+  var ID = false; //ID는 절대로 false가 될 수 없다!!
+  for (var i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === id) {
+      ID = true;
+    }
+  }
+  if (ID === false) {
+    warning('changeState: invaild id -', id);
+    return;
+  }
+  
   if(state !== STATE_C && state !== STATE_P) {
     warning('changeState: invalid -', state);
     
     return;
   }
+  
   for (var i = 0; i < tasks.length; i++) {
     if (id === tasks[i].id) {
       tasks.state = state;
