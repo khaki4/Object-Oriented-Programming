@@ -1,7 +1,5 @@
 /**
- * 1> chageState는 return값이 약속된 state와 일치해야 하는 등
- *    많은 위험성을 내포하고 있으므로 노출되는 함수는 좀 더 제한적이어야 한다.
- * 2> chageState는 노출 하지말고 toggle 함수를 만들어 노출한다
+ * 1> add함수 실행이후에 아이디를 리턴하도록 수정
  */
 
 var todo = (function() {
@@ -13,6 +11,7 @@ var todo = (function() {
     var id = 1;
 
     return function(title) {
+      var result = id;
       tasks.push({
         title: title,
         id: id++,
@@ -20,6 +19,7 @@ var todo = (function() {
       });
 
       render();
+      return result;
     };
   })();
 
@@ -95,7 +95,7 @@ var todo = (function() {
     add: addTask,
     remove: removeTask,
     toggle: function(id) {
-      for(var i = 0, i < tasks.length; i++) {
+      for(var i = 0; i < tasks.length; i++) {
         if(id === tasks[i]) {
           var state = tasks[i].state;
           if(state === STATE_P) {
@@ -109,3 +109,6 @@ var todo = (function() {
     }
   };
 })();
+
+var taskId = todo.add('이름');
+todo.toggle(taskId);
