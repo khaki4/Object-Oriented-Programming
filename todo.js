@@ -1,9 +1,11 @@
 /**
- * 1> addTask 등의 이외의 함수를 쓰지 않고 tasks및 상대를 변화시킬 수 있다는 문제점 해결
- * 2> 필요한 함수만 노출
+ * 1> 익명함수를 받는 변수 추가
+ * 2> 실제 함수명과 캡슐화에서 노출되는 함수명 수정(바깥쪽에서 인식하기 좋은 함수명으로 수정)
+ *
+ * 함수의 시그니쳐: 함수명과 파라미터
  */
 
-(function() {
+var todo = (function() {
   var tasks = [];
   var STATE_P = '진행';
   var STATE_C = '완료';
@@ -91,8 +93,8 @@
   render();
 
   return {
-    addTask: addTask,
+    add: addTask,
+    remove: removeTask,
     changeState: changeState,
-    removeTask: removeTask,
   };
 })();
