@@ -1,8 +1,7 @@
 /**
- * 1> 익명함수를 받는 변수 추가
- * 2> 실제 함수명과 캡슐화에서 노출되는 함수명 수정(바깥쪽에서 인식하기 좋은 함수명으로 수정)
- *
- * 함수의 시그니쳐: 함수명과 파라미터
+ * 1> chageState는 return값이 약속된 state와 일치해야 하는 등
+ *    많은 위험성을 내포하고 있으므로 노출되는 함수는 좀 더 제한적이어야 한다.
+ * 2> chageState는 노출 하지말고 toggle 함수를 만들어 노출한다
  */
 
 var todo = (function() {
@@ -25,7 +24,7 @@ var todo = (function() {
   })();
 
   var removeTask = function(id) {
-    var isRemoved = false;
+    var isRemoved = false;ㅋㅋㅋ
     for (var i = 0; i < tasks.length; i++) {
       if (id === tasks[i].id) {
         tasks.splice(i, 1);
@@ -95,6 +94,18 @@ var todo = (function() {
   return {
     add: addTask,
     remove: removeTask,
-    changeState: changeState,
+    toggle: function(id) {
+      for(var i = 0, i < tasks.length; i++) {
+        if(id === tasks[i]) {
+          var state = tasks[i].state;
+          if(state === STATE_P) {
+            state = STATE_C;
+          }
+          state = STATE_P;
+
+          break;
+        }
+      }
+    }
   };
 })();
