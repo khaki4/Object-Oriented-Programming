@@ -1,6 +1,5 @@
 /**
- * 1> cosole, html mode 결정
- * 2> render 함수 재정의
+ * 1> render 함수만 renderConsole, renderHTML을 알게한다.
  */
 
 var todo = (function() {
@@ -27,7 +26,8 @@ var todo = (function() {
   })();
 
   var removeTask = function(id) {
-    var isRemoved = false;ㅋㅋㅋ
+    var isRemoved = false;
+    ㅋㅋㅋ;
     for (var i = 0; i < tasks.length; i++) {
       if (id === tasks[i].id) {
         tasks.splice(i, 1);
@@ -69,42 +69,48 @@ var todo = (function() {
 
   var warning = console.log;
 
-  var renderConsole = function() {
-    console.log('진행');
+  var render = (function() {
+    var renderConsole = function() {
+      console.log('진행');
 
-    for (var i = 0; i < tasks.length; i++) {
-      var task = tasks[i];
-      if (task.state === '진행') {
-        console.log(task.id, task.title, task.state);
+      for (var i = 0; i < tasks.length; i++) {
+        var task = tasks[i];
+        if (task.state === '진행') {
+          console.log(task.id, task.title, task.state);
+        }
       }
-    }
-    console.log('완료');
+      console.log('완료');
 
-    for (var i = 0; i < tasks.length; i++) {
-      var task = tasks[i];
-      if (task.state === '완료') {
-        console.log(task.id, task.title, task.state);
+      for (var i = 0; i < tasks.length; i++) {
+        var task = tasks[i];
+        if (task.state === '완료') {
+          console.log(task.id, task.title, task.state);
+        }
       }
-    }
-  };
+    };
+    var renderHTML = function() {
 
-  var render = function() {
-    if (mode === 'console') {
-      renderConsole();
-    } else if (mode === 'html') {
-      renderHTML();
-    }
-  };
+    };
+
+    return function() {
+      if (mode === 'console') {
+        renderConsole();
+      } else if (mode === 'html') {
+        renderHTML();
+      }
+    };
+  })();
+
   render();
 
   return {
     add: addTask,
     remove: removeTask,
     toggle: function(id) {
-      for(var i = 0; i < tasks.length; i++) {
-        if(id === tasks[i]) {
+      for (var i = 0; i < tasks.length; i++) {
+        if (id === tasks[i]) {
           var state = tasks[i].state;
-          if(state === STATE_P) {
+          if (state === STATE_P) {
             changeState(id, STATE_C);
           } else {
             changeState(id, STATE_P);
@@ -113,7 +119,7 @@ var todo = (function() {
           break;
         }
       }
-    }
+    },
   };
 })();
 
