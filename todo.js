@@ -1,10 +1,11 @@
 /**
- * 1> changeState => toggle의 결과로
- *    changeState의 두번째 인자인 state는 외부입력이 아니라
- *    하드코딩 된 내부입력이므로 validation 후보에서 제거한다.
+ * 1> cosole, html mode 결정
+ * 2> render 함수 재정의
  */
 
 var todo = (function() {
+  var mode = 'console';
+
   var tasks = [];
   var STATE_P = '진행';
   var STATE_C = '완료';
@@ -68,7 +69,7 @@ var todo = (function() {
 
   var warning = console.log;
 
-  var render = function() {
+  var renderConsole = function() {
     console.log('진행');
 
     for (var i = 0; i < tasks.length; i++) {
@@ -84,6 +85,14 @@ var todo = (function() {
       if (task.state === '완료') {
         console.log(task.id, task.title, task.state);
       }
+    }
+  };
+
+  var render = function() {
+    if (mode === 'console') {
+      renderConsole();
+    } else if (mode === 'html') {
+      renderHTML();
     }
   };
   render();
