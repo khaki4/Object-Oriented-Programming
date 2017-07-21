@@ -1,11 +1,9 @@
 /**
- * 1> modeHtml, modeConsole API로 노출
- *  - 인자로 받지 않는 이유는 인자 없는 함수가 가장 좋은 함수이기 때문에
- *  - 인자를 늘리는 것 보다 함수를 늘리는 것 이 낫다.
+ * 파일명 변경
  */
 
 var todo = (function() {
-  var mode = 'html';
+  var mode = 'console';
 
   var tasks = [];
   var STATE_P = '진행';
@@ -131,5 +129,7 @@ var todo = (function() {
   };
 })();
 
+todo.modeConsole();
 var taskId = todo.add('이름');
 todo.toggle(taskId);
+console.log(todo)
