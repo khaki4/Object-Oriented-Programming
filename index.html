@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+
 <body>
+  <section id="todo">
+    <form>
+      <input type="text" />
+      <input type="text" />
+    </form>
+    <section>
+      <h1>진행</h1>
+      <ul class="progres">
+        <li>
+          <p>할일</p>
+          <input type="button" value="완료">
+          <input type="button" value="삭제">
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h1>완료</h1>
+      <ul class="complete">
+        <li>
+          <p>할일</p>
+          <input type="button" value="진행">
+          <input type="button" value="삭제">
+        </li>
+      </ul>
+    </section>
+
+  </section>
   <script src='./script.js'></script>
 </body>
+
 </html>
