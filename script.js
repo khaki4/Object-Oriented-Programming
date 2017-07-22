@@ -3,7 +3,7 @@
  */
 
 var todo = (function() {
-  var mode = 'console';
+  var mode = 'html';
 
   var tasks = [];
   var STATE_P = '진행';
@@ -70,8 +70,16 @@ var todo = (function() {
   var warning = console.log;
   var init, render;
   (function() {
+    var completeLi, progressLi;
     init = (function() {
-      var initHtml = function() {};
+      var initHtml = function() {
+
+        progressLi = document.querySelector('#todo .progress li');
+        completeLi = document.querySelector('#todo .complete li');
+
+        progressLi.parentNode.removeChild(progressLi);
+        completeLi.parentNode.removeChild(completeLi);
+      };
       return function() {
         if (mode === 'html') {
           initHtml();
@@ -139,7 +147,4 @@ var todo = (function() {
   };
 })();
 
-todo.modeConsole();
-var taskId = todo.add('이름');
-todo.toggle(taskId);
-console.log(todo);
+todo.init();
