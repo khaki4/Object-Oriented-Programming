@@ -68,44 +68,46 @@ var todo = (function() {
   };
 
   var warning = console.log;
-
-  var init = (function() {
-    var initHtml = function() {};
-    return function() {
-      if (mode === 'html') {
-        initHtml();
-      }
-    };
-  })();
-
-  var render = (function() {
-    var renderConsole = function() {
-      console.log('진행');
-
-      for (var i = 0; i < tasks.length; i++) {
-        var task = tasks[i];
-        if (task.state === '진행') {
-          console.log(task.id, task.title, task.state);
+  var init, render;
+  (function() {
+    init = (function() {
+      var initHtml = function() {};
+      return function() {
+        if (mode === 'html') {
+          initHtml();
         }
-      }
-      console.log('완료');
+      };
+    })();
 
-      for (var i = 0; i < tasks.length; i++) {
-        var task = tasks[i];
-        if (task.state === '완료') {
-          console.log(task.id, task.title, task.state);
+    render = (function() {
+      var renderConsole = function() {
+        console.log('진행');
+
+        for (var i = 0; i < tasks.length; i++) {
+          var task = tasks[i];
+          if (task.state === '진행') {
+            console.log(task.id, task.title, task.state);
+          }
         }
-      }
-    };
-    var renderHTML = function() {};
+        console.log('완료');
 
-    return function() {
-      if (mode === 'console') {
-        renderConsole();
-      } else if (mode === 'html') {
-        renderHTML();
-      }
-    };
+        for (var i = 0; i < tasks.length; i++) {
+          var task = tasks[i];
+          if (task.state === '완료') {
+            console.log(task.id, task.title, task.state);
+          }
+        }
+      };
+      var renderHTML = function() {};
+
+      return function() {
+        if (mode === 'console') {
+          renderConsole();
+        } else if (mode === 'html') {
+          renderHTML();
+        }
+      };
+    })();
   })();
 
   render();
