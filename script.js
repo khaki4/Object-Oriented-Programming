@@ -69,6 +69,15 @@ var todo = (function() {
 
   var warning = console.log;
 
+  var init = (function() {
+    var initHtml = function() {};
+    return function() {
+      if (mode === 'html') {
+        initHtml();
+      }
+    };
+  })();
+
   var render = (function() {
     var renderConsole = function() {
       console.log('진행');
@@ -88,9 +97,7 @@ var todo = (function() {
         }
       }
     };
-    var renderHTML = function() {
-
-    };
+    var renderHTML = function() {};
 
     return function() {
       if (mode === 'console') {
@@ -104,6 +111,7 @@ var todo = (function() {
   render();
 
   return {
+    init: init,
     modeHtml: function() {
       mode = 'html';
     },
@@ -132,4 +140,4 @@ var todo = (function() {
 todo.modeConsole();
 var taskId = todo.add('이름');
 todo.toggle(taskId);
-console.log(todo)
+console.log(todo);
