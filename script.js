@@ -81,6 +81,7 @@ var todo = (function() {
         completeLi.parentNode.removeChild(completeLi);
       };
       return function() {
+        warning('init ...');
         if (mode === 'html') {
           initHtml();
         }
@@ -106,7 +107,15 @@ var todo = (function() {
           }
         }
       };
-      var renderHTML = function() {};
+      var renderHTML = function() {
+        console.log('각 리스트를 비운다');
+        document.querySelector('#todo .progress').innerHTML = '';
+        document.querySelector('#todo .complete').innerHTML = '';
+
+        console.log('진행을 채운다');
+        console.log('완료를 채운다');
+        console.log('인풋 박스를 비운다');
+      };
 
       return function() {
         if (mode === 'console') {
