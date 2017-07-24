@@ -27,7 +27,6 @@ var todo = (function() {
 
   var removeTask = function(id) {
     var isRemoved = false;
-    ㅋㅋㅋ;
     for (var i = 0; i < tasks.length; i++) {
       if (id === tasks[i].id) {
         tasks.splice(i, 1);
@@ -70,59 +69,26 @@ var todo = (function() {
   var warning = console.log;
   var init, render;
   (function() {
-    var completeLi, progressLi;
-    init = (function() {
-      var initHtml = function() {
+    var html = (function() {
+      var completeLi;
+      var progressLi;
+      return {
+        init: function() {
+          progressLi = document.querySelector('#todo .progress li');
+          completeLi = document.querySelector('#todo .complete li');
 
-        progressLi = document.querySelector('#todo .progress li');
-        completeLi = document.querySelector('#todo .complete li');
+          progressLi.parentNode.removeChild(progressLi);
+          completeLi.parentNode.removeChild(completeLi);
+        },
+        render: function() {
+          console.log('각 리스트를 비운다');
+          document.querySelector('#todo .progress').innerHTML = '';
+          document.querySelector('#todo .complete').innerHTML = '';
 
-        progressLi.parentNode.removeChild(progressLi);
-        completeLi.parentNode.removeChild(completeLi);
-      };
-      return function() {
-        warning('init ...');
-        if (mode === 'html') {
-          initHtml();
-        }
-      };
-    })();
-
-    render = (function() {
-      var renderConsole = function() {
-        console.log('진행');
-
-        for (var i = 0; i < tasks.length; i++) {
-          var task = tasks[i];
-          if (task.state === '진행') {
-            console.log(task.id, task.title, task.state);
-          }
-        }
-        console.log('완료');
-
-        for (var i = 0; i < tasks.length; i++) {
-          var task = tasks[i];
-          if (task.state === '완료') {
-            console.log(task.id, task.title, task.state);
-          }
-        }
-      };
-      var renderHTML = function() {
-        console.log('각 리스트를 비운다');
-        document.querySelector('#todo .progress').innerHTML = '';
-        document.querySelector('#todo .complete').innerHTML = '';
-
-        console.log('진행을 채운다');
-        console.log('완료를 채운다');
-        console.log('인풋 박스를 비운다');
-      };
-
-      return function() {
-        if (mode === 'console') {
-          renderConsole();
-        } else if (mode === 'html') {
-          renderHTML();
-        }
+          console.log('진행을 채운다');
+          console.log('완료를 채운다');
+          console.log('인풋 박스를 비운다');
+        },
       };
     })();
   })();
