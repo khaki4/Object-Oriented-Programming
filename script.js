@@ -81,6 +81,9 @@ var todo = (function() {
           completeLi.parentNode.removeChild(completeLi);
         },
         render: function() {
+          if (typeof completeLi === 'undefined' || typeof progressLi === 'undefined') {
+            return;
+          }
           console.log('각 리스트를 비운다');
           document.querySelector('#todo .progress').innerHTML = '';
           document.querySelector('#todo .complete').innerHTML = '';
