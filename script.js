@@ -68,33 +68,84 @@ var todo = (function() {
 
   var warning = console.log;
   var init, render;
-  (function() {
-    var html = (function() {
-      var completeLi;
-      var progressLi;
-      return {
-        init: function() {
-          progressLi = document.querySelector('#todo .progress li');
-          completeLi = document.querySelector('#todo .complete li');
 
-          progressLi.parentNode.removeChild(progressLi);
-          completeLi.parentNode.removeChild(completeLi);
-        },
-        render: function() {
-          if (typeof completeLi === 'undefined' || typeof progressLi === 'undefined') {
-            return;
-          }
-          console.log('각 리스트를 비운다');
-          document.querySelector('#todo .progress').innerHTML = '';
-          document.querySelector('#todo .complete').innerHTML = '';
+  var html = (function() {
+    var completeLi;
+    var progressLi;
+    return {
+      init: function() {
+        progressLi = document.querySelector('#todo .progress li');
+        completeLi = document.querySelector('#todo .complete li');
 
-          console.log('진행을 채운다');
-          console.log('완료를 채운다');
-          console.log('인풋 박스를 비운다');
-        },
-      };
-    })();
+        progressLi.parentNode.removeChild(progressLi);
+        completeLi.parentNode.removeChild(completeLi);
+      },
+      render: function() {
+        if (
+          typeof completeLi === 'undefined' ||
+          typeof progressLi === 'undefined'
+        ) {
+          return;
+        }
+        console.log('각 리스트를 비운다');
+        document.querySelector('#todo .progress').innerHTML = '';
+        document.querySelector('#todo .complete').innerHTML = '';
+
+        console.log('진행을 채운다');
+        console.log('완료를 채운다');
+        console.log('인풋 박스를 비운다');
+      },
+    };
   })();
+
+  var con = (function() {
+    return {
+      init: function() {
+        console.clear();
+      },
+      render: function() {
+        console.log('진행');
+
+        var task;
+
+        for (var i = 0; i < tasks.length; i++) {
+          task = tasks[i];
+          if (task.state === STATE.PROGRESS()) {
+            console.log(
+              task.id + '.',
+              task.title + '(' + task.state.toString() + ')'
+            );
+          }
+        }
+
+        console.log('완료');
+
+        for (var i = 0; i < tasks.length; i++) {
+          task = tasks[i];
+          if (task.state === STATE.COMPLETE()) {
+            console.log(
+              task.id + '.',
+              task.title + '(' + task.state.toString() + ')'
+            );
+          }
+        }
+      },
+    };
+  })();
+  init = function() {
+    if (mode === 'console') {
+      con.init();
+    } else if (mode === 'html') {
+      html.init();
+    }
+  };
+  render = function() {
+    if (mode === 'console') {
+      con.render();
+    } else if (mode === 'html') {
+      html.render();
+    }
+  };
 
   render();
 
