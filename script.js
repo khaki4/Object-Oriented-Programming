@@ -1,10 +1,8 @@
 /**
- * 파일명 변경
+ *  init, render 중복 제거
  */
 
 var todo = (function() {
-  var mode = 'html';
-
   var tasks = [];
   var STATE_P = '진행';
   var STATE_C = '완료';
@@ -17,7 +15,7 @@ var todo = (function() {
       tasks.push({
         title: title,
         id: id++,
-        state: STATE_P,
+        state: STATE_P
       });
 
       render();
@@ -67,7 +65,7 @@ var todo = (function() {
   };
 
   var warning = console.log;
-  var init, render;
+  var init, render, target;
 
   var html = (function() {
     var completeLi;
@@ -94,7 +92,7 @@ var todo = (function() {
         console.log('진행을 채운다');
         console.log('완료를 채운다');
         console.log('인풋 박스를 비운다');
-      },
+      }
     };
   })();
 
@@ -129,33 +127,23 @@ var todo = (function() {
             );
           }
         }
-      },
+      }
     };
   })();
   init = function() {
-    if (mode === 'console') {
-      con.init();
-    } else if (mode === 'html') {
-      html.init();
-    }
+    target.init();
   };
   render = function() {
-    if (mode === 'console') {
-      con.render();
-    } else if (mode === 'html') {
-      html.render();
-    }
+    target.render();
   };
-
-  render();
 
   return {
     init: init,
     modeHtml: function() {
-      mode = 'html';
+      target = html;
     },
     modeConsole: function() {
-      mode = 'console';
+      target = con;
     },
     add: addTask,
     remove: removeTask,
@@ -172,7 +160,7 @@ var todo = (function() {
           break;
         }
       }
-    },
+    }
   };
 })();
 
