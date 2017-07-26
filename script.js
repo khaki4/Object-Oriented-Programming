@@ -1,5 +1,6 @@
 /**
- *  init, render 중복 제거
+ *  todo 객체 안에서 tasks를 참조하는 순간 todo는 진정한 의미의 객체가 아니게 된다
+ *  line 104 참조
  */
 
 var todo = (function() {
@@ -78,7 +79,7 @@ var todo = (function() {
         progressLi.parentNode.removeChild(progressLi);
         completeLi.parentNode.removeChild(completeLi);
       },
-      render: function() {
+      render: function(tasks) {
         if (
           typeof completeLi === 'undefined' ||
           typeof progressLi === 'undefined'
@@ -101,7 +102,10 @@ var todo = (function() {
       init: function() {
         console.clear();
       },
-      render: function() {
+      // render는 tasks를 제대로 그리기만 할 뿐 tasks상태에 관여하지 않는다
+      // 상태에 관여하지 않으려면 복사본을 넘긴다
+      // Object.assign(tasks)
+      render: function(tasks) {
         console.log('진행');
 
         var task;
@@ -134,7 +138,7 @@ var todo = (function() {
     target.init();
   };
   render = function() {
-    target.render();
+    target.render(Object.assign(tasks));
   };
 
   return {
