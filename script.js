@@ -1,5 +1,5 @@
 /**
- *  todo 안에서 html, con을 밖으로 빼냄
+ *  setRenderer 타입체크
  */
 
 var todo = (function() {
@@ -76,11 +76,10 @@ var todo = (function() {
 
   return {
     init: init,
-    modeHtml: function() {
-      target = html;
-    },
-    modeConsole: function() {
-      target = con;
+    setRenderer: function(renderer) {
+      if(typeof renderer === 'function' && typeof renderer.render === 'function') {
+        target = renderer;
+      }
     },
     add: addTask,
     remove: removeTask,
