@@ -1,13 +1,18 @@
-/**
- *  - html 나머지 로직 추가
- *  1> 완료, 진행을 채운다
- */
-
+var STATE = (function() {
+  var c = {toString: function() {return 'COMPLETE'}};
+  var p = {toString: function() {return 'PROGRESS'}};
+  return {
+    COMPLETE: function() {
+      return c;
+    },
+    PROGRESS: function() {
+      return p;
+    }
+  };
+})();
 var todo = (function() {
   var tasks = [];
-  var STATE_P = '진행';
-  var STATE_C = '완료';
-
+  
   var addTask = (function() {
     var id = 1;
 
@@ -16,7 +21,7 @@ var todo = (function() {
       tasks.push({
         title: title,
         id: id++,
-        state: STATE_P
+        state: STATE.PROGRESS()
       });
 
       render();
@@ -77,7 +82,7 @@ var todo = (function() {
       if(typeof renderer.init !== 'function' || typeof renderer.render !== 'function') return;
       
       target = renderer;
-      target.init();
+      target.init(todo);
     },
     add: addTask,
     remove: removeTask,
@@ -85,10 +90,10 @@ var todo = (function() {
       for (var i = 0; i < tasks.length; i++) {
         if (id === tasks[i]) {
           var state = tasks[i].state;
-          if (state === STATE_P) {
-            changeState(id, STATE_C);
+          if (state === STATE.PROGRESS()) {
+            changeState(id, STATE.COMPLETE());
           } else {
-            changeState(id, STATE_P);
+            changeState(id, STATE.PROGRESS());
           }
 
           break;
@@ -98,8 +103,4 @@ var todo = (function() {
   };
 })();
 
-
-
-
-todo.setRenderer(html);
 
