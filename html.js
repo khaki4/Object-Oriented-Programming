@@ -2,11 +2,7 @@
  * 형상속을 위해서는 html 은 단일 인스턴스이지만 형정의를 해야한다.
  */
 
-var Html = function() {
-  // var completeLi;
-  // var progressLi;
-  // var todo;
-};
+var Html = function() {};
 Html.prototype = new Renderer(); // html 은 Render 의 자손이다. init, render 상속
 
 Html.prototype._init = function(todo) {
@@ -63,3 +59,5 @@ Html.prototype._render = function(tasks) {
 var html = new Html();
 
 html.render();
+
+

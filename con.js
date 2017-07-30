@@ -3,7 +3,7 @@ Con.prototype = new Renderer();
 Con.prototype._init = function(todo) {
   console.clear();
 };
-Con.prototype._render = function(task) {
+Con.prototype._render = function(tasks) {
   console.log('진행');
   
   var task;
