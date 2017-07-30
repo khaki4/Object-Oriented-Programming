@@ -1,6 +1,14 @@
 var STATE = (function() {
-  var c = {toString: function() {return 'COMPLETE'}};
-  var p = {toString: function() {return 'PROGRESS'}};
+  var c = {
+    toString: function() {
+      return 'COMPLETE';
+    }
+  };
+  var p = {
+    toString: function() {
+      return 'PROGRESS';
+    }
+  };
   return {
     COMPLETE: function() {
       return c;
@@ -10,9 +18,10 @@ var STATE = (function() {
     }
   };
 })();
+
 var todo = (function() {
   var tasks = [];
-  
+
   var addTask = (function() {
     var id = 1;
 
@@ -46,7 +55,7 @@ var todo = (function() {
   };
 
   var changeState = function(id, state) {
-    var ID = false; //ID는 절대로 false가 될 수 없다!!
+    var ID = false;
     var STATE;
     for (var i = 0; i < tasks.length; i++) {
       if (tasks[i].id === id) {
@@ -72,14 +81,17 @@ var todo = (function() {
 
   var warning = console.log;
   var target;
-  
+
   var render = function() {
     target.render(Object.assign(tasks));
   };
 
   return {
     setRenderer: function(renderer) {
-      if(typeof renderer.init !== 'function' || typeof renderer.render !== 'function') return;
+      /** renderer 에 관한 정보는 해당 파일의 정보롤 열람하기 전 까지 알 수 없다.
+       *  if (typeof renderer.init !== 'function' || typeof renderer.render !== 'function')
+       */
+      if (!(renderer instanceof Renderer)) return;
       
       target = renderer;
       target.init(todo);
@@ -102,5 +114,3 @@ var todo = (function() {
     }
   };
 })();
-
-
