@@ -1,11 +1,10 @@
 // class 를 scope 를 이용해 정의
 // shadow 사용해 코드의 의미를 전달
 var Task = (function () {
-  var id = 1, c = {}, p = {};
+  var c = {}, p = {};
   
   var Task = function (title) {
     this._title = title;
-    this._id = id++;
     this._state = p;
   };
   
@@ -71,12 +70,9 @@ var todo = (function() {
     },
     add: addTask,
     remove: removeTask,
-    toggle: function(id) {
-      for (var i = 0; i < tasks.length; i++) {
-        if (id === tasks[i]) {
-          tasks[i].toggle();
-          break;
-        }
+    toggle: function(task) {
+      if (tasks.indexOf(task) > -1) {
+        task.toggle();
       }
     }
   };
