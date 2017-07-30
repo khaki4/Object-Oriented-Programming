@@ -1,7 +1,3 @@
-/**
- * 형상속을 위해서는 html 은 단일 인스턴스이지만 형정의를 해야한다.
- */
-
 var Html = function() {};
 Html.prototype = new Renderer(); // html 은 Render 의 자손이다. init, render 상속
 

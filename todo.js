@@ -1,22 +1,26 @@
-var STATE = (function() {
-  var c = {
-    toString: function() {
-      return 'COMPLETE';
+// class 를 scope 를 이용해 정의
+// shadow 사용해 코드의 의미를 전달
+var Task = (function () {
+  var id = 1, c = {}, p = {};
+  
+  var Task = function (title) {
+    this._title = title;
+    this._id = id++;
+    this._state = p;
+  };
+  
+  Task.prototype.isComplete = function() {
+    return this._state === c;
+  };
+  Task.prototype.toggle = function () {
+    if(this._state === c) {
+      this._state = p;
+    } else {
+      this._state = c;
     }
   };
-  var p = {
-    toString: function() {
-      return 'PROGRESS';
-    }
-  };
-  return {
-    COMPLETE: function() {
-      return c;
-    },
-    PROGRESS: function() {
-      return p;
-    }
-  };
+  
+  return Task;
 })();
 
 var todo = (function() {
@@ -27,11 +31,7 @@ var todo = (function() {
 
     return function(title) {
       var result = id;
-      tasks.push({
-        title: title,
-        id: id++,
-        state: STATE.PROGRESS()
-      });
+      tasks.push(new Task(title));
 
       render();
       return result;
@@ -53,31 +53,7 @@ var todo = (function() {
     }
     render();
   };
-
-  var changeState = function(id, state) {
-    var ID = false;
-    var STATE;
-    for (var i = 0; i < tasks.length; i++) {
-      if (tasks[i].id === id) {
-        ID = id;
-      }
-    }
-    if (ID === false) {
-      warning('changeState: invaild id -', id);
-      return;
-    }
-
-    STATE = state;
-
-    for (var i = 0; i < tasks.length; i++) {
-      if (ID === tasks[i].id) {
-        tasks.state = STATE;
-        break;
-      }
-    }
-
-    render();
-  };
+  
 
   var warning = console.log;
   var target;
@@ -98,13 +74,7 @@ var todo = (function() {
     toggle: function(id) {
       for (var i = 0; i < tasks.length; i++) {
         if (id === tasks[i]) {
-          var state = tasks[i].state;
-          if (state === STATE.PROGRESS()) {
-            changeState(id, STATE.COMPLETE());
-          } else {
-            changeState(id, STATE.PROGRESS());
-          }
-
+          tasks[i].toggle();
           break;
         }
       }
