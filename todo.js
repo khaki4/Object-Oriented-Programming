@@ -88,9 +88,6 @@ var todo = (function() {
 
   return {
     setRenderer: function(renderer) {
-      /** renderer 에 관한 정보는 해당 파일의 정보롤 열람하기 전 까지 알 수 없다.
-       *  if (typeof renderer.init !== 'function' || typeof renderer.render !== 'function')
-       */
       if (!(renderer instanceof Renderer)) return;
       
       target = renderer;
