@@ -1,5 +1,3 @@
-// class 를 scope 를 이용해 정의
-// shadow 사용해 코드의 의미를 전달
 var Task = (function () {
   var c = {}, p = {};
   
@@ -22,58 +20,38 @@ var Task = (function () {
   return Task;
 })();
 
-var todo = (function() {
-  var tasks = [];
-
-  var addTask = (function() {
-    var id = 1;
-
-    return function(title) {
-      var result = id;
-      tasks.push(new Task(title));
-
-      render();
-      return result;
-    };
-  })();
-
-  var removeTask = function(id) {
-    var isRemoved = false;
-    for (var i = 0; i < tasks.length; i++) {
-      if (id === tasks[i].id) {
-        tasks.splice(i, 1);
-        isRemoved = true;
-
-        break;
-      }
-    }
-    if (!isRemoved) {
-      warning('removeTask: invalid id');
-    }
-    render();
+var Todo = (function() {
+  var Todo = function() {
+    this._tasks = [];
+    this._renderer = null;
   };
   
-
-  var warning = console.log;
-  var target;
-
-  var render = function() {
-    target.render(Object.assign(tasks));
+  var fn = Todo.prototype;
+  
+  fn._render = function() {
+    this._renderer.render(this._tasks.slice(0));
   };
-
-  return {
-    setRenderer: function(renderer) {
-      if (!(renderer instanceof Renderer)) return;
-      
-      target = renderer;
-      target.init(todo);
-    },
-    add: addTask,
-    remove: removeTask,
-    toggle: function(task) {
-      if (tasks.indexOf(task) > -1) {
-        task.toggle();
-      }
-    }
+  fn._checkTask = function (task) {
+    return (task instanceof Task) && (this._tasks.indexOf(task) > -1);
   };
+  fn.setRenderer = function(renderer) {
+    if (!(renderer instanceof Renderer)) return;
+    this._renderer = renderer;
+    renderer.init(this);
+  };
+  fn.add = function (title) {
+    this._tasks.push(new Task(title));
+    this._render();
+  };
+  fn.remove = function(task) {
+    var tasks = this._tasks;
+    if (this._checkTask(task)) tasks.splice(tasks.indexOf(task), 1);
+    this._render();
+  };
+  fn.toggle = function(task) {
+    if (this._checkTask(task)) task.toggle();
+  };
+  
+  return Todo;
+  
 })();
