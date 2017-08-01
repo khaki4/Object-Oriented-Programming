@@ -20,13 +20,13 @@ var Task = (function () {
   return Task;
 })();
 
-var Todo = (function() {
-  var Todo = function() {
+var TaskManager = (function() {
+  var TaskManager = function() {
     this._tasks = [];
     this._renderer = null;
   };
   
-  var fn = Todo.prototype;
+  var fn = TaskManager.prototype;
   
   fn._render = function() {
     this._renderer.render(this._tasks.slice(0));
