@@ -1,67 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="kr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>TO-DO</title>
 </head>
-
 <body>
-  <section id="todo">
-    <form class="add">
-      <input type="text" />
-      <input type="submit" />
-    </form>
-    <section>
-      <h1>진행</h1>
-      <ul class="progress">
-        <li>
-          <p>할일</p>
-          <input type="button" value="완료">
-          <input type="button" value="삭제">
-        </li>
-      </ul>
-    </section>
-    <section>
-      <h1>완료</h1>
-      <ul class="complete">
-        <li>
-          <p>할일</p>
-          <input type="button" value="진행">
-          <input type="button" value="삭제">
-        </li>
-      </ul>
-    </section>
-
+<section id="todo">
+  <form class="add">
+    <input type="text" class="title"/>
+    <input type="submit" value="할일 추가"/>
+  </form>
+  <section>
+    <h1>진행</h1>
+    <ul class="progress">
+      <li>
+        <p>할일</p>
+        <input type="button" value="완료" />
+        <input type="button" value="삭제" />
+      </li>
+    </ul>
   </section>
-  <script src="renderer.js"></script>
-  <script src='html.js'></script>
-  <!--<script src='con.js'></script>-->
-  <script src='todo.js'></script>
+  <section>
+    <h1>완료</h1>
+    <ul class="complete">
+      <li>
+        <p>할일</p>
+        <input type="button" value="진행" />
+        <input type="button" value="삭제" />
+      </li>
+    </ul>
+  </section>
+</section>
+<script src="Renderer.js"></script>
+<script src="Con.js"></script>
+<script src="ListManager.js"></script>
+<script src="List.js"></script>
+<script src="Item.js"></script>
+<script src="TaskManager.js"></script>
+<script type="text/javascript">
+  var todo = new TaskManager();
+  todo.setRenderer(new ListManager(
+    //add 함수 정의
+    function(taskManager){
+      // 할 일의 내용을 입력받는 input 창을 찾는다.
+      var title = document.querySelector('#todo .title');
+      // 할 일을 추가하는 버튼을 클릭 시 실행될 함수를 정의한다.
+      document.querySelector('#todo .add').onsubmit = function(){
+        // 입력창의 내용을 꺼내 공백을 없앤다.
+        var v = title.value.trim();
 
-  <!--<script src='script.js'></script>-->
-  <script>
-    var todo = new TaskManager();
-    todo.setRenderer(new ListManger(
-      function (todo) {
-        var title = document.querySelector('#todo .title');
-        document.querySelector('#todo .add').onsubmit = function () {
-          var v = title.value.trim();
-          if (v) {
-            todo.add(v);
-          }
-          title.value = '';
+        // 입력값이 있다면, todo의 add 메서드를 실행한다.
+        if(v) taskManager.add(v);
 
-          // submit 이후 페이지 재갱신 하지 않으려면 return false;를 한다
-          return false;
-        };
-      },
-      new List('#todo .progress', new Item('#todo .progress li')),
-      new List('#todo .complete', new Item('#todo .complete li'))
-    ));
-  </script>
+        // 입력창의 값을 초기화한다.
+        title.value = '';
+        // onsubmit 함수 실행 후 페이지 재쟁신을 하지 않도록 false를 리턴한다.
+        return false;
+      };
+    },
+    //pList 생성
+    new List('#todo .progress', new Item('#todo .progress li')),
+    //cList 생성
+    new List('#todo .complete', new Item('#todo .complete li'))
+  ));
+</script>
 </body>
-
 </html>
