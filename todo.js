@@ -17,6 +17,16 @@ var Task = (function () {
     }
   };
   
+  Task.prototype.toString = function () {
+    /**
+     * el.querySelector('p').innerHTML = task; 에서
+     * innerHTML은 task.toString()을 자동으로 호출한다.
+     * 그러므로 Task.toString을 override 해두면 task만 적어두면
+     * task에서 알아서 타이틀을 반환한다.
+     */
+    return this._title;
+  };
+  
   return Task;
 })();
 

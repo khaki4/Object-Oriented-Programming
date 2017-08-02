@@ -10,7 +10,7 @@
 
 <body>
   <section id="todo">
-    <form>
+    <form class="add">
       <input type="text" />
       <input type="submit" />
     </form>
@@ -43,7 +43,24 @@
 
   <!--<script src='script.js'></script>-->
   <script>
-    todo.setRenderer(html);
+    var todo = new TaskManager();
+    todo.setRenderer(new ListManger(
+      function (todo) {
+        var title = document.querySelector('#todo .title');
+        document.querySelector('#todo .add').onsubmit = function () {
+          var v = title.value.trim();
+          if (v) {
+            todo.add(v);
+          }
+          title.value = '';
+
+          // submit 이후 페이지 재갱신 하지 않으려면 return false;를 한다
+          return false;
+        };
+      },
+      new List('#todo .progress', new Item('#todo .progress li')),
+      new List('#todo .complete', new Item('#todo .complete li'))
+    ));
   </script>
 </body>
 
